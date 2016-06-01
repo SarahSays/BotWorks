@@ -1,0 +1,23 @@
+{
+  "name": "botworks",
+  "version": "1.0.0",
+  "description": "Build a bot in Node.js on Microsoft Bot Framework",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SarahSays/BotWorks.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SarahSays/BotWorks/issues"
+  },
+  "homepage": "https://github.com/SarahSays/BotWorks#readme",
+  "dependencies": {
+    "botbuilder": "^1.0.0",
+    "restify": "^4.1.0"
+  }
+}
