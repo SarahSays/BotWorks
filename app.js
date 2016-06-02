@@ -7,7 +7,7 @@ var appSecret = process.env.MY_APP_SECRET || "Missing your app secret";
 
 // Create bot and add dialogs
 var bot = new builder.BotConnectorBot
-({ appId, appSecret});
+({appId, appSecret});
 bot.add('/', function (session) {
 session.send('Hello World');
 });
