@@ -23,7 +23,10 @@ console.log('%s listening to %s', server.name, server.url);
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
-var port = process.env.PORT || 3000;
-app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
-});
+//var port = process.env.PORT || 3000;
+// app.get('/', function(req, res){
+//   res.sendFile(__dirname + '/index.html');
+// });
+app.use(express.static(__dirname));
+//redirecting, telling it to use the thing that's in the directory name 
+//(should default to index.html)
