@@ -2,33 +2,20 @@
 var restify = require('restify');
 var builder = require('botbuilder');
 
-//var appId = process.env.MY_APP_ID || "Missing your app ID";
-//var appSecret = process.env.MY_APP_SECRET || "Missing your app secret";
-
 // Create bot and add dialogs
 var bot = new builder.BotConnectorBot({appId: process.env.MY_APP_ID, appSecret: process.env.MY_APP_SECRET});
-bot.add('/', function (session) {
+bot.add('/', new builder.SimpleDialog(function (session) {
     session.send('Hello World');
-});
-
-bot.listen();
-
-//This is for an index.html home page
-// var express = require('express');
-// var app = express();
-// var http = require('http').Server(app);
-// var port = process.env.PORT || 3000;
-//  app.get('/', function(req, res){
-//    res.sendFile(__dirname + '/index.html');
-//  });
+}));
  
 // Setup Restify Server
 var server = restify.createServer();
+ 
+server.get('/', restify.serveStatic({
+    directory: __dirname,
+    default: '/index.html'
+}));
 server.post('/api/messages', bot.verifyBotFramework(), bot.listen());
 server.listen(process.env.port || 3000, function () {
     console.log('%s listening to %s', server.name, server.url);
 });
-
-//app.use(express.static(__dirname));
-//redirecting, telling it to use the thing that's in the directory name 
-//(should default to index.html)
