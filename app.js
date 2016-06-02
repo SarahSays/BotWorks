@@ -18,3 +18,12 @@ server.post('/api/messages', bot.verifyBotFramework(), bot.listen());
 server.listen(process.env.port || 3978, function () {
 console.log('%s listening to %s', server.name, server.url);
 });
+
+//This is for an index.html home page
+var express = require('express');
+var app = express();
+var http = require('http').Server(app);
+var port = process.env.PORT || 3000;
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/index.html');
+});
