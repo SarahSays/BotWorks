@@ -1,39 +1,32 @@
 
 var restify = require('restify');
 var builder = require('botbuilder');
-var server = restify.createServer();
 
-
-//This is for an index.html home page
-var express = require('express');
-var app = express();
-var http = require('http').Server(app);
-var port = process.env.PORT || 3000;
- app.get('/', function(req, res){
-   res.sendFile(__dirname + '/index.html');
- });
- 
-var appId = process.env.MY_APP_ID || "Missing your app ID";
-var appSecret = process.env.MY_APP_SECRET || "Missing your app secret";
+//var appId = process.env.MY_APP_ID || "Missing your app ID";
+//var appSecret = process.env.MY_APP_SECRET || "Missing your app secret";
 
 // Create bot and add dialogs
-var bot = new builder.BotConnectorBot
-({appId, appSecret});
+var bot = new builder.BotConnectorBot({appId: process.env.MY_APP_ID, appSecret: process.env.MY_APP_SECRET});
 bot.add('/', function (session) {
-session.send('Hello World');
+    session.send('Hello World');
 });
 
-http.listen(port, function(){
-    console.log('listening on ' + port);
-}); 
+bot.listen();
 
+//This is for an index.html home page
+// var express = require('express');
+// var app = express();
+// var http = require('http').Server(app);
+// var port = process.env.PORT || 3000;
+//  app.get('/', function(req, res){
+//    res.sendFile(__dirname + '/index.html');
+//  });
  
 // Setup Restify Server
-//var server = restify.createServer();
-server.use(bot.verifyBotFramework()); 
+var server = restify.createServer();
 server.post('/api/messages', bot.verifyBotFramework(), bot.listen());
 server.listen(process.env.port || 3000, function () {
-console.log('%s listening to %s', server.name, server.url);
+    console.log('%s listening to %s', server.name, server.url);
 });
 
 //app.use(express.static(__dirname));
