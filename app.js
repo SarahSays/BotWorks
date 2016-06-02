@@ -3,15 +3,6 @@ var restify = require('restify');
 var builder = require('botbuilder');
 var server = restify.createServer();
 
-var appId = process.env.MY_APP_ID || "Missing your app ID";
-var appSecret = process.env.MY_APP_SECRET || "Missing your app secret";
-
-// Create bot and add dialogs
-var bot = new builder.BotConnectorBot
-({appId, appSecret});
-bot.add('/', function (session) {
-session.send('Hello World');
-});
 
 //This is for an index.html home page
 var express = require('express');
@@ -22,8 +13,24 @@ var port = process.env.PORT || 3000;
    res.sendFile(__dirname + '/index.html');
  });
  
+var appId = process.env.MY_APP_ID || "Missing your app ID";
+var appSecret = process.env.MY_APP_SECRET || "Missing your app secret";
+
+// Create bot and add dialogs
+var bot = new builder.BotConnectorBot
+({appId, appSecret});
+bot.add('/', function (session) {
+session.send('Hello World');
+});
+
+http.listen(port, function(){
+    console.log('listening on ' + port);
+}); 
+
+ 
 // Setup Restify Server
 //var server = restify.createServer();
+server.use(bot.verifyBotFramework()); 
 server.post('/api/messages', bot.verifyBotFramework(), bot.listen());
 server.listen(process.env.port || 3000, function () {
 console.log('%s listening to %s', server.name, server.url);
