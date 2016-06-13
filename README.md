@@ -1,2 +1,4 @@
 # BotWorks
-Build a bot in Node.js on Microsoft Bot Framework
+Build a bot in Node.js on Microsoft Bot Framework.
+
+![ChatTest](/images/ChatTestHello.PNG)
